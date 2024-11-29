@@ -1,0 +1,30 @@
+<!-- templates/hash_result.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Hash Lookup Result</h2>
+<p><strong>File Hash:</strong> {{ result.file_hash }}</p>
+<p><strong>Reputation:</strong> {{ result.reputation }}</p>
+<p><strong>Community Reputation:</strong> {{ result.community_reputation }}</p>
+<p><strong>Malicious Detections:</strong> {{ result.malicious_count }} out of {{ result.total_engines }} engines</p>
+<p><strong>File Type:</strong> {{ result.file_type }}</p>
+<p><strong>File Size:</strong> {{ result.file_size }} bytes</p>
+<p><strong>Signer:</strong> {{ result.file_signer }}</p>
+<p><strong>File Names:</strong> {{ result.file_names|join(', ') }}</p>
+
+<!-- Top 5 Community Comments -->
+{% if result.comments %}
+    <h3>Top 5 Community Comments</h3>
+    <div class="comments-section">
+        {% for comment in result.comments %}
+            <div class="comment">
+                <p><strong>{{ comment.user }}</strong> <em>({{ comment.date }})</em></p>
+                <p>{{ comment.comment }}</p>
+                <hr>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <h3>No Community Comments Available.</h3>
+{% endif %}
+{% endblock %}

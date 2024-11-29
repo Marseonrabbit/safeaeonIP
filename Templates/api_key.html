@@ -1,0 +1,11 @@
+<!-- templates/api_key.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>API Key Management</h2>
+<form method="post" action="{{ url_for('save_api_key_route') }}">
+    <label for="api_key">VirusTotal API Key:</label><br>
+    <input type="text" name="api_key" id="api_key" value="{{ session.get('api_key', '') }}"><br><br>
+    <input type="submit" value="Save API Key">
+</form>
+{% endblock %}

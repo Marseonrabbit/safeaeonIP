@@ -1,0 +1,13 @@
+<!-- templates/hash_lookup.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Hash Reputation Check</h2>
+<form method="post" action="{{ url_for('lookup_hash') }}">
+    <label for="api_key">VirusTotal API Key:</label><br>
+    <input type="text" name="api_key" id="api_key" value="{{ session.get('api_key', '') }}"><br><br>
+    <label for="file_hash">File Hash:</label><br>
+    <input type="text" name="file_hash" id="file_hash"><br><br>
+    <input type="submit" value="Lookup">
+</form>
+{% endblock %}
