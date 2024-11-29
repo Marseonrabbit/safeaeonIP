@@ -14,6 +14,3 @@ A Flask-based web application for IP and hash analysis using the VirusTotal API.
 1. Clone the repository:
    ```bash
    git clone https://github.com/Marseonrabbit/IPtoolsafeaeon.git
-# IPtoolsafeaeon
-# IPtoolsafeaeon
-# IPtoolsafeaeon
