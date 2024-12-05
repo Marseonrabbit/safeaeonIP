@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, send_file, session, jsonify
 import os
+from dotenv import load_dotenv
 import pandas as pd
 import requests
 from werkzeug.utils import secure_filename
@@ -9,12 +10,34 @@ from openpyxl.utils.dataframe import dataframe_to_rows
 from threading import Thread, Event
 import uuid
 
-app = Flask(__name__)
-app.secret_key = 'your_secret_key'  # Replace with a secure key
+# Load environment variables from .env file
+load_dotenv()
 
-# Global dictionary to store job details
+app = Flask(__name__)
+
+# Configuration
+app.secret_key = os.environ.get('SECRET_KEY', 'your_secret_key')  # Replace with a secure key in production
+
+# Define upload and download folders
+UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER', 'uploads')
+DOWNLOAD_FOLDER = os.environ.get('DOWNLOAD_FOLDER', 'downloads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB limit
+
+# Ensure upload and download directories exist
+os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+os.makedirs(app.config['DOWNLOAD_FOLDER'], exist_ok=True)
+
+# Initialize jobs dictionary for bulk uploads
 jobs = {}
 
+# ... [Include all your route handlers and utility functions here] ...
+
+if __name__ == '__main__':
+    # For local development, use Flask's built-in server or Waitress
+    # For production, Gunicorn is used as specified in Procfile
+    app.run(debug=True)
 def get_country_name(country_code):
     """Retrieve the full country name from the country code."""
     if not country_code:
